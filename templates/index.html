@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GP Search Application</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">GP Search Application</h1>
+        <form method="POST" class="mt-3">
+            <div class="form-group">
+                <label for="query">Enter GP Name, P Code, or any other search term:</label>
+                <input type="text" id="query" name="query" class="form-control" value="{{ query }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        {% if results is not none %}
+            <h3 class="mt-5">Search Results:</h3>
+            <ul class="list-group mt-3">
+                {% for index, row in results.iterrows() %}
+                    <li class="list-group-item">
+                        {% for col_value in row %}
+                            {% if col_value %}
+                                <p>{{ col_value }}</p>
+                            {% endif %}
+                        {% endfor %}
+                        <hr>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="mt-5">No GP found with the given search criteria.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
